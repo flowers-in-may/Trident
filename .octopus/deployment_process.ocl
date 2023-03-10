@@ -6,6 +6,7 @@ step "deploy-a-package" {
 
     action "remove-from-lb" {
         action_type = "Octopus.Script"
+        environments = ["staging", "production"]
         name = "remove from LB"
         properties = {
             Octopus.Action.RunOnServer = "false"
@@ -13,8 +14,7 @@ step "deploy-a-package" {
                 $machineName = $OctopusParameters["Octopus.Machine.Name"]
                 
                 Write-Host "Remove $machineName from the Load Balancer.."
-                Write-Host "Failing."
-                exit 1
+                
                 EOT
             Octopus.Action.Script.ScriptSource = "Inline"
             Octopus.Action.Script.Syntax = "PowerShell"
