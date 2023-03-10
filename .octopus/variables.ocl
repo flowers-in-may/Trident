@@ -45,3 +45,15 @@ variable "Project.Database.Server.Name" {
         environment = ["production"]
     }
 }
+
+variable "Octopus.ServiceNow.ChangeRequest.Number" {
+    value {
+        environment = ["production"]
+
+        prompt {
+            description = ""
+            label = "ServiceNow Integration"
+            required = true
+        }
+    }
+}
