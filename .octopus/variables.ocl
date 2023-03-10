@@ -1,0 +1,47 @@
+variable "ConnectionStrings:Database" {
+    value "Server=#{Project.Database.Server.Name};Database=#{Project.Database.Name};User ID=#{Project.Database.User.Name};Password=#{Project.Database.User.Password};" {}
+}
+
+variable "Email Body" {
+    value "You can view the the deployment here: #{Octopus.Web.ServerUri}/app#/#{Octopus.Space.Id}/tasks/#{Octopus.Task.Id}" {}
+}
+
+variable "email recipients" {
+    value "kristinntyr@gmail.com" {
+        environment = ["development", "staging"]
+    }
+
+    value "qa@solidify.dev" {
+        environment = ["qa"]
+    }
+
+    value "kristinn.gunnarsson@solidify.dev" {
+        environment = ["production"]
+    }
+}
+
+variable "Email Subject" {
+    value "#{Octopus.Project.Name} #{Octopus.Release.Number} to #{Octopus.Environment.Name} has #{if Octopus.Deployment.Error}failed#{else}completed successfully#{/if}" {}
+}
+
+variable "Project.Database.Name" {
+    value "Trident" {}
+}
+
+variable "Project.Database.Server.Name" {
+    value "Trident_Dev" {
+        environment = ["development"]
+    }
+
+    value "Trident_QA" {
+        environment = ["qa"]
+    }
+
+    value "Trident_Staging" {
+        environment = ["staging"]
+    }
+
+    value "Trident_Prod" {
+        environment = ["production"]
+    }
+}
